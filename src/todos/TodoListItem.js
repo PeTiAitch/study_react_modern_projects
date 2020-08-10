@@ -9,7 +9,7 @@ const TodoListItem = ({ todo, onRemovePressed, onCompletedPressed }) => (
                 ? null
                 : <button
                     onClick={() => {
-                        onCompletedPressed(todo.text)
+                        onCompletedPressed(todo.id)
                     }}
                     className="completed-button">
                     Mark As Completed
@@ -17,7 +17,7 @@ const TodoListItem = ({ todo, onRemovePressed, onCompletedPressed }) => (
 
             <button
                 onClick={() => {
-                    onRemovePressed(todo.text)
+                    onRemovePressed(todo.id)
                 }}
                 className="remove-button">
                 Remove
