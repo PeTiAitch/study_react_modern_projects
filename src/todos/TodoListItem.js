@@ -1,29 +1,82 @@
 import React from 'react';
-import './TodoListItem.css';
+import styled from 'styled-components';
 
-const TodoListItem = ({ todo, onRemovePressed, onCompletedPressed }) => (
-    <div className="todo-item-container">
+const TodoItemContainer = styled.div`
+    background: #fff;
+    border-radius: 8px;
+    margin-top: 8px;
+    padding: 16px;
+    position: relative;
+    box-shadow: 0 4px 8px grey;
+`;
+
+export const getBorderStyleForDate = (startingDate, currentDate) =>
+    (startingDate > new Date(currentDate - 86400000 * 5)
+        ? 'none'
+        : '2px solid red');
+
+const TodoItemContainerWithWarning = styled(TodoItemContainer)`
+    border-bottom: ${props => (props.randNum > 0.5
+        ? 'none'
+        : '2px solid red')};
+`;
+
+const ButtonsContainer = styled.div`
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+`;
+
+const Button = styled.button`
+    font-size: 16px;
+    padding: 8px;
+    border: none;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+`;
+
+const CompletedButton = styled(Button)`
+    display: inline-block;
+    background-color: #22ee22;
+`;
+
+const RemoveButton = styled(Button)`
+    display: inline-block;
+    background-color: #ee2222;
+    margin-left: 8px;
+`;
+
+const TodoListItem = ({ todo, onRemovePressed, onCompletedPressed }) => {
+    const Container = todo.isCompleted ? TodoItemContainer : TodoItemContainerWithWarning;
+
+    return (
+    <Container createdAt = {todo.createdAt} randNum={Math.random()}>
         <h3>{todo.text}</h3>
-        <div className="buttons-container">
+        <p>
+            Created at:&nbsp;
+            {new Date(todo.createdAt).toLocaleDateString()}
+        </p>
+        <ButtonsContainer>
             {todo.isCompleted
                 ? null
-                : <button
+                : <CompletedButton
                     onClick={() => {
                         onCompletedPressed(todo.id)
                     }}
-                    className="completed-button">
+                    >
                     Mark As Completed
-                </button>}
+                </CompletedButton>}
 
-            <button
+            <RemoveButton
                 onClick={() => {
                     onRemovePressed(todo.id)
                 }}
-                className="remove-button">
+                >
                 Remove
-            </button>
-        </div>
-    </div>
-);
+            </RemoveButton>
+        </ButtonsContainer>
+    </Container>
+)};
 
 export default TodoListItem;

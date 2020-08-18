@@ -14,13 +14,15 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "styled-components": "^5.1.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "plamtest": "mocha \"src/**/*.test.js\" --require @babel/register --recursive"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -36,5 +38,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/register": "^7.10.5",
+    "chai": "^4.2.0",
+    "fetch-mock": "^9.10.7",
+    "mocha": "^8.1.1",
+    "node-fetch": "^2.6.0",
+    "sinon": "^9.0.3"
   }
 }
